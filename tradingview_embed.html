@@ -32,34 +32,23 @@
 
       function getQueryParam(name) {
         const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(name) || "BITSTAMP:BTCUSD"; // default
+        return urlParams.get(name); // default
       }
 
       function initChart() {
         widget = new TradingView.widget({
           "container_id": "tradingview_chart",
           "autosize": true,
-          "symbol": getQueryParam("symbol"),
-          "interval": "1", // mặc định 1 phút
+          "symbol": getQueryParam("symbol")  || "BITSTAMP:BTCUSD",
+          "interval": getQueryParam("interval") || "1", // mặc định 1 phút
           "timezone": "Etc/UTC",
           "theme": "dark",
           "style": "1",
           "locale": "en",
           "enable_publishing": false,
           "hide_top_toolbar": true,
-          "hide_legend": false,
-          onChartReady: function() {
-            console.log("Chart is ready");
-            window.addEventListener("message", function(event) {
-              console.log("Got message:", event.data);
-              if (event.data && event.data.type === "changeInterval") {
-                widget.chart().setResolution(event.data.value, function() {
-                console.log("Interval changed to", event.data.value);
-              });
-              }
-            });
-          }
-        });
+          "hide_legend": false
+        })
       }
       window.onload = initChart;
     </script>
