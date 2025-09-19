@@ -47,21 +47,20 @@
           "locale": "en",
           "enable_publishing": false,
           "hide_top_toolbar": true,
-          "hide_legend": false
+          "hide_legend": false,
+          onChartReady: function() {
+            console.log("Chart is ready");
+            window.addEventListener("message", function(event) {
+              console.log("Got message:", event.data);
+              if (event.data && event.data.type === "changeInterval") {
+                widget.chart().setResolution(event.data.value, function() {
+                console.log("Interval changed to", event.data.value);
+              });
+              }
+            });
+          }
         });
       }
-
-      window.addEventListener("message", function (event) {
-      if (event.data.type === "changeInterval") {
-        console.log("Interval changed to", event.data);
-        widget.onChartReady(function () {
-          widget.chart().setResolution(event.data.value, function () {
-            console.log("Interval changed to", event.data.value);
-          });
-        });
-      }
-    });
-
       window.onload = initChart;
     </script>
   </body>
