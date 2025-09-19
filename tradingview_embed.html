@@ -27,8 +27,9 @@
     /* Label overlay */
     #myLabel {
       position: absolute;
-      top: 10px;
-      left: 10px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       color: #fff;
       font-size: 20px;
       font-weight: bold;
@@ -78,7 +79,7 @@
     }
     window.onload = initChart;
     // Hàm cập nhật label từ Cocos
-    function updateLabel(text) {
+    window.updateLabel = function(text) {
       const label = document.getElementById("myLabel");
       label.innerText = text;
 
