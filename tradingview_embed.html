@@ -53,6 +53,7 @@
 
       window.addEventListener("message", function (event) {
       if (event.data.type === "changeInterval") {
+        console.log("Interval changed to", event.data);
         widget.onChartReady(function () {
           widget.chart().setResolution(event.data.value, function () {
             console.log("Interval changed to", event.data.value);
