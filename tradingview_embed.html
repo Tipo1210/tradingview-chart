@@ -51,16 +51,15 @@
         });
       }
 
-      // Hàm đổi interval để Cocos gọi
-      window.changeInterval = function(newInterval) {
-        if (widget && widget.chart) {
-          widget.onChartReady(function() {
-            widget.chart().setResolution(newInterval, function() {
-              console.log("Interval changed to", newInterval);
-            });
+      window.addEventListener("message", function (event) {
+      if (event.data.type === "changeInterval") {
+        widget.onChartReady(function () {
+          widget.chart().setResolution(event.data.value, function () {
+            console.log("Interval changed to", event.data.value);
           });
-        }
-      };
+        });
+      }
+    });
 
       window.onload = initChart;
     </script>
